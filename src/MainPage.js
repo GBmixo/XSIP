@@ -18,7 +18,12 @@ class MainPage extends React.Component{
                 //This information should be enough to render an image on the canvas with a spot to look out for
                 pikePlaceMarket:[
                     {name: "Skater", position: "63 215", size: "104 195", sprite: "?", context: "talk", color: "#33AAFF"},
-                    {name: "Busker", position: "161 181", size: "104 195", sprite: "?", context: "talk", color: "#33AAFF"}
+                    {name: "Busker", position: "161 181", size: "104 195", sprite: "?", context: "talk", color: "#33AAFF"},
+                    {name: "Newsie", position: "276 212", size: "104 195", sprite: "?", context: "talk", color: "#33AAFF"},
+                    {name: "Fish Monger", position: "360 150", size: "60 100", sprite: "?", context: "talk", color: "#33AAFF"},
+                    {name: "Tourist", position: "440 269", size: "104 195", sprite: "?", context: "talk", color: "#33AAFF"},
+                    {name: "Activist", position: "567 271", size: "104 195", sprite: "?", context: "talk", color: "#33AAFF"},
+                    {name: "Barista", position: "637 164", size: "60 100", sprite: "?", context: "talk", color: "#33AAFF"}
                 ]
             }
         },

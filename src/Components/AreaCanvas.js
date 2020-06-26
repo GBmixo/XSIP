@@ -35,7 +35,7 @@ class AreaCanvas extends React.Component{
 
         //This is the event listener for the clicks that check for collision with game elements
         canvas.addEventListener('click', e => {
-            // e.preventDefault();
+            console.log(e.target, 'e.target')
             let object = {};
             //Finds the difference from the (0, 0) of the canvas
             object.x = (e.clientX - rect.left);

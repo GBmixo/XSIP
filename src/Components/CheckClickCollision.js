@@ -1,6 +1,6 @@
 const CheckClickCollision = (objects, clickX, clickY) => {
     console.log(clickX + ' ' + clickY, 'coords')
-    debugger
+    // debugger
     for(let i = 0; i < objects.length; i++){
         let pos = objects[i].position.split(' ');
         let size = objects[i].size.split(' ');
