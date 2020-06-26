@@ -17,8 +17,8 @@ class MainPage extends React.Component{
                 //This is generally what I'm imagining the level-object structure is going to be like
                 //This information should be enough to render an image on the canvas with a spot to look out for
                 pikePlaceMarket:[
-                    {name: "Clark", position: "300 122", size: "90 200", sprite: "?", context: "talk", color: "#33AAFF"},
-                    {name: "Dlark", position: "400 122", size: "90 200", sprite: "?", context: "talk", color: "#33AAFF"}
+                    {name: "Skater", position: "63 215", size: "104 195", sprite: "?", context: "talk", color: "#33AAFF"},
+                    {name: "Busker", position: "161 181", size: "104 195", sprite: "?", context: "talk", color: "#33AAFF"}
                 ]
             }
         },
@@ -38,7 +38,8 @@ class MainPage extends React.Component{
     }
 
     handleClick = (index, context) => {
-        console.log(context)
+        console.log(context, 'hi')
+        
         //readability variables
         let worldState = this.state.worldState;
         let levels = this.state.levels;
@@ -115,7 +116,9 @@ class MainPage extends React.Component{
                 <Router>
                     <div>
                         <div>
-                            <Link to="/">Main</Link> <Link to="/Scene">Play</Link>
+                            <Link to="/">Main</Link>
+                            <Link to="/Scene">Play</Link>
+                            <Link to="/Area">Area</Link>
                         </div>
                         <Switch>
                             <Route path='/' exact>

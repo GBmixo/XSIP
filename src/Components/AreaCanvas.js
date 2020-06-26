@@ -22,9 +22,7 @@ class AreaCanvas extends React.Component{
 
         area.onload = function () {
             ctx.drawImage(area, 0, 0, canvas.width, canvas.height);
-            console.log('area function')
-            // THIS NEEDS TO GO SOMEWHERE ELSE
-            // loadAlien()
+            // debugger
         };
 
         //LIGHTSWITCH
@@ -37,6 +35,7 @@ class AreaCanvas extends React.Component{
 
         //This is the event listener for the clicks that check for collision with game elements
         canvas.addEventListener('click', e => {
+            // e.preventDefault();
             let object = {};
             //Finds the difference from the (0, 0) of the canvas
             object.x = (e.clientX - rect.left);
@@ -107,6 +106,20 @@ class AreaCanvas extends React.Component{
         }
     }
 
+    checkCollision = (clickX, clickY) => {
+        let objects = this.props.levelObjects;
+        for (let i = 0; i < objects.length; i++) {
+            let pos = objects[i].position.split(' ');
+            let size = objects[i].size.split(' ');
+            //Compares the click to the dimensions of the rectangle
+            if ((clickX > pos[0]) && (clickX < parseInt(pos[0]) + parseInt(size[0])) && (clickY > pos[1]) && (clickY < parseInt(pos[1]) + parseInt(size[1]))) {
+                console.log('hit ' + objects[i].name);
+                this.checkContext(i, objects[i]);
+            }
+        }
+    }
+    
+    
     render(){
         return(
             <div>
