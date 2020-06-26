@@ -57,7 +57,7 @@ class SceneCanvas extends React.Component{
 
     renderDialog = (ctx, text, position, fontSize="30px", font="Arial") => {
         let worldState = this.props.worldState;
-        console.log(this.props.worldState);
+        console.log(this.props.worldState, 'render dialog');
 
         if(worldState.dialogBox[worldState.dialogCurrent]){
                 text = worldState.dialogBox[worldState.dialogCurrent]
