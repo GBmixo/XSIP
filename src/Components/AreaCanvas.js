@@ -1,9 +1,5 @@
 import React from 'react';
 import CheckClickCollision from './CheckClickCollision.js';
-import Front1 from '../Images/front-1.png'
-import Pike from '../Images/pikePlace.jpg'
-
-
 
 
 class AreaCanvas extends React.Component{
@@ -18,35 +14,20 @@ class AreaCanvas extends React.Component{
         const canvas = this.refs.canvas;
         const ctx = canvas.getContext("2d");
         const rect = canvas.getBoundingClientRect();
-        var area = new Image();
-
-        area.onload = function () {
-            ctx.drawImage(area, 0, 0, canvas.width, canvas.height);
-            // debugger
-        };
-
-        //LIGHTSWITCH
-        area.src = Pike
-        this.setBackground(canvas, area);
-
-
         //Sets a BG color
-        // this.setBackground(canvas, "#4B4B55");
+        this.setBackground(canvas, "#4B4B55");
 
         //This is the event listener for the clicks that check for collision with game elements
         canvas.addEventListener('click', e => {
-            console.log(e.target, 'e.target')
-            // debugger
             let object = {};
             //Finds the difference from the (0, 0) of the canvas
             object.x = (e.clientX - rect.left);
             object.y =  (e.clientY - rect.top);
-            //Calculates whether the click touched an object
+            //Calculates whether the click touched an object and returns the index and object
             let collision = CheckClickCollision(this.props.levelObjects, object.x, object.y);
 
             if(collision){
-                this.checkContext(collision[0], 'zero', collision[1], 'one');
-                // console.log('collision', collision[0], collision[1])
+                this.checkContext(collision[0], collision[1]);
             }
         })
 
@@ -78,7 +59,7 @@ class AreaCanvas extends React.Component{
 
     renderDialog = (ctx, text, position, fontSize="30px", font="Arial") => {
         let worldState = this.props.worldState;
-        console.log(this.props.worldState, 'render dialog');
+        console.log(this.props.worldState);
 
         if(worldState.dialogBox[worldState.dialogCurrent]){
                 text = worldState.dialogBox[worldState.dialogCurrent]
@@ -108,20 +89,6 @@ class AreaCanvas extends React.Component{
         }
     }
 
-    checkCollision = (clickX, clickY) => {
-        let objects = this.props.levelObjects;
-        for (let i = 0; i < objects.length; i++) {
-            let pos = objects[i].position.split(' ');
-            let size = objects[i].size.split(' ');
-            //Compares the click to the dimensions of the rectangle
-            if ((clickX > pos[0]) && (clickX < parseInt(pos[0]) + parseInt(size[0])) && (clickY > pos[1]) && (clickY < parseInt(pos[1]) + parseInt(size[1]))) {
-                console.log('hit ' + objects[i].name);
-                this.checkContext(i, objects[i]);
-            }
-        }
-    }
-    
-    
     render(){
         return(
             <div>

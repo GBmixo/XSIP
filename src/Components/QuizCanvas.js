@@ -1,8 +1,7 @@
 import React from 'react';
 import CheckClickCollision from './CheckClickCollision.js';
 
-
-class SceneCanvas extends React.Component{
+class QuizCanvas extends React.Component{
 
     componentDidMount = () => {
         //Renders the canvas with game objects
@@ -15,7 +14,7 @@ class SceneCanvas extends React.Component{
         const ctx = canvas.getContext("2d");
         const rect = canvas.getBoundingClientRect();
         //Sets a BG color
-        this.setBackground(canvas, "#4B4B55");
+        this.setBackground(canvas, "#404077");
 
         //This is the event listener for the clicks that check for collision with game elements
         canvas.addEventListener('click', e => {
@@ -24,20 +23,21 @@ class SceneCanvas extends React.Component{
             object.x = (e.clientX - rect.left);
             object.y =  (e.clientY - rect.top);
             //Calculates whether the click touched an object and returns the index and object
-            let collision = CheckClickCollision(this.props.levelObjects, object.x, object.y);
+            let collision = CheckClickCollision(this.props.questionButtons, object.x, object.y);
 
             if(collision){
-                this.checkContext(collision[0], collision[1]);
+                this.props.onClick(collision[0]);
             }
         })
 
-        this.renderCanvasObjects(ctx)
-        this.renderDialog(ctx, this.props.worldState.dialogBox[this.props.worldState.dialogCurrent], [30, 50]);
+        console.log(this.props);
+        this.renderCanvasObjects(ctx);
+        this.renderText(ctx);
         
     }
 
     renderCanvasObjects = (ctx) => {
-        this.props.levelObjects.map(obj => {
+        this.props.questionButtons.map(obj => {
 
             //Seperates the data into individual numbers
             let pos = obj.position.split(' ');
@@ -53,18 +53,42 @@ class SceneCanvas extends React.Component{
             //Creates a rectangle with the fillStyle
             ctx.fillRect(pos[0],pos[1],dimensions[0],dimensions[1]);
         })
+
+        let qPanel = this.props.question;
+        let pos = qPanel.position.split(' ');
+        let dimensions = qPanel.size.split(' ');
+
+        if(qPanel.color){
+            ctx.fillStyle = qPanel.color;
+        }else{
+            ctx.fillStyle = "#FFFF33";
+        }
+
+        ctx.fillRect(pos[0],pos[1],dimensions[0],dimensions[1]);
     }
 
-    renderDialog = (ctx, text, position, fontSize="30px", font="Arial") => {
-        let worldState = this.props.worldState;
-        console.log(this.props.worldState);
+    renderText = (ctx, fontSize="20px", font="Arial") => {
 
+        this.props.questionButtons.map((qButton, index) => {
+            let qText = qButton.qText;
+            let pos = qButton.position.split(' ');
+            let adjustPosY = parseInt(pos[1]) +40
+            let adjustPosX = parseInt(pos[0]) +5
+
+            ctx.font = fontSize + " " + font;
+            ctx.fillStyle = "#000000";
+            console.log(this.props.questionText)
+            ctx.fillText(qText, adjustPosX, adjustPosY);
+        })
+
+        /*
         if(worldState.dialogBox[worldState.dialogCurrent]){
                 text = worldState.dialogBox[worldState.dialogCurrent]
                 ctx.font = fontSize + " " + font;
                 ctx.fillStyle = "#000000";
                 ctx.fillText(text, position[0], position[1]);
         }
+        */
 
         
     }
@@ -73,27 +97,13 @@ class SceneCanvas extends React.Component{
         canvas.style.background = backgroundColor;
     }
 
-    checkContext = (index, object) => {
-        switch(object.context){
-            case "talk": this.props.onClick(index, 'talk')
-            break;
-            case "pickup": this.props.onClick(index, 'pickup')
-            break;
-            case "dialogue": this.props.onClick(index, 'dialogue')
-            break; 
-            default: this.props.onClick(index, "impossible")
-        }
-    }
-
     render(){
         return(
             <div>
                 <canvas ref="canvas" width={750} height={450} />
             </div>
-        )
+        );
     }
-    
 }
 
-
-export default SceneCanvas;
+export default QuizCanvas;
