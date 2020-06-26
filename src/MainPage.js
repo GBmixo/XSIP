@@ -44,7 +44,7 @@ class MainPage extends React.Component{
         let levels = this.state.levels;
         //Finds the object in the state by the given index
         let object = levels[worldState.currentCity][worldState.currentSpot][index];
-        if(context == "talk"){
+        if(context === "talk"){
             //runs the npcTalk script
             this.npcTalk(object);
         }
@@ -55,14 +55,14 @@ class MainPage extends React.Component{
         console.log(object)
         //prepares shortened variable for readability
         let oldState = this.state;
-        let currentSpot = oldState.levels [oldState.worldState.currentCity] [oldState.worldState.currentSpot];
+        let currentSpot = oldState.levels[oldState.worldState.currentCity][oldState.worldState.currentSpot];
         //let dialogBox = oldState.worldState.dialogBox;
         //unrender and wait until state is updated
         oldState.everythingLoaded = false;
         this.setState(oldState);
 
         //checks if there's a text and if there isn't, make one in the object list
-        if(!currentSpot.find(obj => obj.name == "textBox")){
+        if(!currentSpot.find(obj => obj.name === "textBox")){
             currentSpot.push({name: "textBox", position: "20 20", size: "600 90", sprite: "?", color: "#FFFFFF"});
         }
 
@@ -78,7 +78,7 @@ class MainPage extends React.Component{
             //reset the values to go back
             oldState.worldState.dialogCurrent = -1;
             oldState.worldState.dialogBox = [];
-            let textBoxIndex = currentSpot.findIndex(obj => obj.name == "textBox", 1);
+            let textBoxIndex = currentSpot.findIndex(obj => obj.name === "textBox", 1);
             currentSpot.splice(textBoxIndex, 1);
         }
         
@@ -90,7 +90,7 @@ class MainPage extends React.Component{
 
     renderScene(){
         //This uses the current city and spot within the city to navigate the levels object and find the objects to put onscreen
-        let levelObjects = this.state.levels [this.state.worldState.currentCity] [this.state.worldState.currentSpot];
+        let levelObjects = this.state.levels[this.state.worldState.currentCity][this.state.worldState.currentSpot];
 
         return(
             <div>
@@ -101,7 +101,7 @@ class MainPage extends React.Component{
 
     renderArea(people){
         //This uses the current city and spot within the city to navigate the levels object and find the objects to put onscreen
-        let levelObjects = this.state.levels [this.state.worldState.currentCity] [this.state.worldState.currentSpot];
+        let levelObjects = this.state.levels[this.state.worldState.currentCity][this.state.worldState.currentSpot];
 
         return(
             <div>
@@ -131,7 +131,6 @@ class MainPage extends React.Component{
                         
                     </div>
                 </Router>
-               
             )
     }
 

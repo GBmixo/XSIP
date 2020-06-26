@@ -1,5 +1,9 @@
 import React from 'react';
 import CheckClickCollision from './CheckClickCollision.js';
+import Front1 from '../Images/front-1.png'
+import Pike from '../Images/pikePlace.jpg'
+
+
 
 
 class AreaCanvas extends React.Component{
@@ -14,8 +18,22 @@ class AreaCanvas extends React.Component{
         const canvas = this.refs.canvas;
         const ctx = canvas.getContext("2d");
         const rect = canvas.getBoundingClientRect();
+        var area = new Image();
+
+        area.onload = function () {
+            ctx.drawImage(area, 0, 0, canvas.width, canvas.height);
+            console.log('area function')
+            // THIS NEEDS TO GO SOMEWHERE ELSE
+            // loadAlien()
+        };
+
+        //LIGHTSWITCH
+        area.src = Pike
+        this.setBackground(canvas, area);
+
+
         //Sets a BG color
-        this.setBackground(canvas, "#4B4B55");
+        // this.setBackground(canvas, "#4B4B55");
 
         //This is the event listener for the clicks that check for collision with game elements
         canvas.addEventListener('click', e => {
@@ -59,7 +77,7 @@ class AreaCanvas extends React.Component{
 
     renderDialog = (ctx, text, position, fontSize="30px", font="Arial") => {
         let worldState = this.props.worldState;
-        console.log(this.props.worldState);
+        console.log(this.props.worldState, 'render dialog');
 
         if(worldState.dialogBox[worldState.dialogCurrent]){
                 text = worldState.dialogBox[worldState.dialogCurrent]
