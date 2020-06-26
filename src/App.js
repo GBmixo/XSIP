@@ -2,6 +2,7 @@ import React from 'react';
 import MainPage from './MainPage.js';
 import './App.css';
 
+
 function App() {
   return (
     <div className="App">

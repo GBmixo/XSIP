@@ -2,7 +2,9 @@ import React from 'react';
 import {BrowserRouter as Router, Switch, Route, Link, Redirect} from "react-router-dom";
 import SceneCanvas from './Components/SceneCanvas';
 import AreaCanvas from './Components/AreaCanvas.js';
-import Dialog from './Containers/Dialog.js'
+import Landing from './Components/Landing.js';
+import Dialog from './Containers/Dialog.js';
+import { Navbar } from 'react-bootstrap';
 
 
 class MainPage extends React.Component{
@@ -95,18 +97,20 @@ class MainPage extends React.Component{
     }
 
     renderScene(){
-        //This uses the current city and spot within the city to navigate the levels object and find the objects to put onscreen
+        // This uses the current city and spot within the city to navigate the levels object and find the objects to put onscreen
         let levelObjects = this.state.levels[this.state.worldState.currentCity][this.state.worldState.currentSpot];
 
         return(
             <div>
                 < SceneCanvas key={SceneCanvas} onClick={this.handleClick} levelObjects={levelObjects} worldState={this.state.worldState} />
             </div>
+
         );
+
     }
 
     renderArea(people){
-        //This uses the current city and spot within the city to navigate the levels object and find the objects to put onscreen
+        // This uses the current city and spot within the city to navigate the levels object and find the objects to put onscreen
         let levelObjects = this.state.levels[this.state.worldState.currentCity][this.state.worldState.currentSpot];
 
         return(
@@ -120,20 +124,24 @@ class MainPage extends React.Component{
             return (
                 <Router>
                     <div>
-                        <div>
-                            <Link to="/">Main</Link>
-                            <Link to="/Scene">Play</Link>
-                            <Link to="/Area">Area</Link>
-                        </div>
+                        <Navbar>
+                            <div>
+                                <Link to="/">Main</Link>
+                                <Link to="/Scene">Play</Link>
+                                <Link to="/Area">Area</Link>
+                            </div>
+
+                        </Navbar>
                         <Switch>
-                            <Route path='/' exact>
-                                {this.state.everythingLoaded ? this.renderScene() : null}
+                            <Route path='/Area' exact>
+                                {this.state.everythingLoaded ? this.renderArea() : null}
                             </Route>
                             <Route path='/Scene' exact>
                                 {this.state.everythingLoaded ? this.renderScene() : null}
                             </Route>
-                            <Route path='/Area' exact>
-                                {this.state.everythingLoaded ? this.renderArea() : null}
+                            <Route path='/' exact>
+                                <Landing></Landing>
+                                {this.state.everythingLoaded ? this.renderScene() : null}
                             </Route>
                         </Switch>
                         
